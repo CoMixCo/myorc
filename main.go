@@ -67,7 +67,7 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	run_file, _ := os.Executable()
-	file_name := fmt.Sprintf("%s/%s.jpg", filepath.Dir(run_file), order_no)
+	file_name := fmt.Sprintf("%s/img/%s.jpg", filepath.Dir(run_file), order_no)
 	if err := SavePic(src, file_name); err != nil {
 		fmt.Fprintf(w, "save pic error: %v", err)
 		return
