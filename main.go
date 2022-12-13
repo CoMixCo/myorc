@@ -5,14 +5,14 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"regexp"
 
 	"github.com/otiai10/gosseract/v2"
 )
 
-const FILE_SAVE_PATH = "./img"
-
 func main() {
+	fmt.Println("running...")
 	http.HandleFunc("/", HelloHandler)
 	http.HandleFunc("/parse", ParseHandler)
 	http.ListenAndServe(":8000", nil)
@@ -66,7 +66,8 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "params error")
 		return
 	}
-	file_name := fmt.Sprintf("%s/%s.jpg", FILE_SAVE_PATH, order_no)
+	run_file, _ := os.Executable()
+	file_name := fmt.Sprintf("%s/%s.jpg", filepath.Dir(run_file), order_no)
 	if err := SavePic(src, file_name); err != nil {
 		fmt.Fprintf(w, "save pic error: %v", err)
 		return
