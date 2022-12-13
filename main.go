@@ -68,12 +68,12 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	file_name := fmt.Sprintf("%s/%s.jpg", FILE_SAVE_PATH, order_no)
 	if err := SavePic(src, file_name); err != nil {
-		fmt.Fprintf(w, "save pic error", err)
+		fmt.Fprintf(w, "save pic error: %v", err)
 		return
 	}
 	text, parse_err := ParsePic(file_name)
 	if parse_err != nil {
-		fmt.Fprintf(w, "parse pic error", parse_err)
+		fmt.Fprintf(w, "parse pic error: %v", parse_err)
 		return
 	}
 	fmt.Fprintf(w, text)
